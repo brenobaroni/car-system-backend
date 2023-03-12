@@ -1,10 +1,19 @@
 const connection = require('./data/connection')
+const dateHelper = require('../helpers/dateHelper')
 
-const getAll = async (req, res) => {
-    const users = await connection.execute('SELECT * FROM users');
-    return res.status(200).send(users).json();
+const getAll = async () => {
+        const [users] = await connection.execute('SELECT * FROM users');
+        return users;
 };
 
+const create = async (user) => {
+    const {email, password} = user;
+    const query = 'INSERT INTO users(email, password, createDate) values (?, ?, ?)'
+    const result = await connection.execute(query, [email, password, dateHelper.currentDateTime()]);
+    return result;
+}
+
 module.exports = {
-    getAll
+    getAll,
+    create
 }
