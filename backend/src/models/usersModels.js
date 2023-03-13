@@ -9,8 +9,8 @@ const getAll = async () => {
 const create = async (user) => {
     const {email, password} = user;
     const query = 'INSERT INTO users(email, password, createDate) values (?, ?, ?)'
-    const result = await connection.execute(query, [email, password, dateHelper.currentDateTime()]);
-    return result;
+    const userCreated = await connection.execute(query, [email, password, dateHelper.currentDateTime()]);
+    return userCreated;
 }
 
 module.exports = {
