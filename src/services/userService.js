@@ -1,14 +1,23 @@
 const userModels = require('../models/usersModels');
 
-const getAll = async (req) => {
+const getAll = async (req, res) => {
     const users = await userModels.getAll(req);
-    return users;
+    return res.status(200).json({
+        success: true,
+        status: 200,
+        message: "",
+        data: users,
+    });
 }
 
-const create = async (req) => {
-    console.log(req.body)
+const create = async (req ,res) => {
     const createdUser = await userModels.create(req.body);
-    return createdUser;
+    return res.status(200).json({
+        success: true,
+        status: 200,
+        message: "",
+        data: createdUser,
+    });
 };
 
 module.exports = {
